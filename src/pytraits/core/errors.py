@@ -21,8 +21,12 @@ UnextendableObjectError = "Target context can be only class or instance of class
 InvalidAssignmentError = "Not possible to assign a key"
 SingletonError = 'Singletons are immutable'
 
-# Convert the strings to actual exception:
-#  - Variable name is converted to type of exception.
-#  - Variable value is added as message.
-from .magic import create_exception_classes
-exec(create_exception_classes)
+
+# Convert strings to exception objects
+for exception, message in dict(globals()).items():
+    if not exception.endswith('Error'):
+        continue
+    bases = (Exception,)
+    attrs =  {'_MSG': message,
+              '__str__': lambda self: self._MSG}
+    globals()[exception] = type(exception, bases, attrs)

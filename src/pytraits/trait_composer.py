@@ -16,7 +16,7 @@
    limitations under the License.
 '''
 
-from pytraits.core import Singleton
+from pytraits.core import Singleton, type_converted
 from pytraits.targets import TraitTarget
 from pytraits.sources import Traits
 
@@ -24,10 +24,24 @@ from pytraits.sources import Traits
 class TraitComposer:
     """
     Main class that handles composing traits into target object.
+
+    >>> class ExampleClass:
+    ...    def example_method(self):
+    ...        return None
+    ...
+    >>> class ExampleTrait:
+    ...    def other_method(self):
+    ...        return 42
+    ...
+    >>> composer = TraitComposer()
+    >>> composer.bind_traits(ExampleClass, ExampleTrait)
+    >>> ExampleClass().other_method()
+    42
     """
     __metaclass__ = Singleton
 
-    def bind_traits(self, obj, *traits):
+    @type_converted
+    def bind_traits(self, target: TraitTarget, *traits):
         """
         Bind new traits to given object.
 
@@ -36,26 +50,13 @@ class TraitComposer:
         @param resolved_conflicts: dictionary of conflict resolutions to solve
                                    situations where multiple methods of same
                                    name are encountered in traits.
-
-        >>> class ExampleClass:
-        ...    def example_method(self):
-        ...        return None
-        ...
-        >>> class ExampleTrait:
-        ...    def example_method(self):
-        ...        return 42
-        ...
         """
         # Return immediately, if no traits provided.
         if not len(traits):
             return
 
-        # Attempt to cretate target context object. Builtins are not supported
-        # thus exception is raised.
-        target_object = TraitTarget(obj)
-
         # Compose traits into target object
-        target_object.add_traits(Traits(traits))
+        target.add_traits(Traits(traits))
 
 
 add_traits = TraitComposer().bind_traits
