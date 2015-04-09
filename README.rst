@@ -5,49 +5,9 @@ py3traits
 | |docs| |travis| |appveyor| |coveralls| |landscape| |scrutinizer|
 | |version| |downloads| |wheel| |supported-versions| |supported-implementations|
 
-.. |docs| image:: https://readthedocs.org/projects/pytraits/badge/?style=flat
-    :target: https://readthedocs.org/projects/pytraits
+.. |docs| image:: https://readthedocs.org/projects/py3traits/badge/?style=flat
+    :target: https://readthedocs.org/projects/py3traits
     :alt: Documentation Status
-
-.. |travis| image:: http://img.shields.io/travis/Debith/pytraits/master.png?style=flat
-    :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/Debith/pytraits
-
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/Debith/pytraits?branch=master
-    :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/Debith/pytraits
-
-.. |coveralls| image:: http://img.shields.io/coveralls/Debith/pytraits/master.png?style=flat
-    :alt: Coverage Status
-    :target: https://coveralls.io/r/Debith/pytraits
-
-.. |landscape| image:: https://landscape.io/github/Debith/pytraits/master/landscape.svg?style=flat
-    :target: https://landscape.io/github/Debith/pytraits/master
-    :alt: Code Quality Status
-
-.. |version| image:: http://img.shields.io/pypi/v/py3traits.png?style=flat
-    :alt: PyPI Package latest release
-    :target: https://pypi.python.org/pypi/py3traits
-
-.. |downloads| image:: http://img.shields.io/pypi/dm/py3traits.png?style=flat
-    :alt: PyPI Package monthly downloads
-    :target: https://pypi.python.org/pypi/py3traits
-
-.. |wheel| image:: https://pypip.in/wheel/py3traits/badge.png?style=flat
-    :alt: PyPI Wheel
-    :target: https://pypi.python.org/pypi/py3traits
-
-.. |supported-versions| image:: https://pypip.in/py_versions/py3traits/badge.png?style=flat
-    :alt: Supported versions
-    :target: https://pypi.python.org/pypi/py3traits
-
-.. |supported-implementations| image:: https://pypip.in/implementation/py3traits/badge.png?style=flat
-    :alt: Supported imlementations
-    :target: https://pypi.python.org/pypi/py3traits
-
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/Debith/pytraits/master.png?style=flat
-    :alt: Scrutinizer Status
-    :target: https://scrutinizer-ci.com/g/Debith/pytraits/
 
 Trait support for Python 3
 
