@@ -77,15 +77,15 @@ class type_converted:
           return value
 
         elif isinstance(value, str):
-          if value.lower() == "true": 
+          if value.lower() == "true":
             return True
           if value.lower() == "false":
             return False
 
         elif isinstance(value, int):
-          if not value: 
+          if not value:
             return False
-          if value == 1: 
+          if value == 1:
             return True
 
         raise TypeError()
@@ -143,4 +143,4 @@ class type_converted:
 
 if __name__ == "__main__":
     import doctest
-    doctest.testmod() 
+    doctest.testmod()
