@@ -36,6 +36,3 @@ instance.add_traits(Traits.for_single_instance)
 # Here is the proofs that method is found from the instance and not from class.
 assert hasattr(instance, 'for_single_instance')
 assert not hasattr(MyExample, 'for_single_instance')
-
-
-

@@ -20,6 +20,7 @@ import inspect
 import functools
 import itertools
 
+
 class type_converted:
     """
     Decorator to enforce types and do auto conversion to values.
@@ -50,17 +51,20 @@ class type_converted:
         """
         # If no type required, return value as is.
         if arg_type is None:
-          return arg_value
+            return arg_value
 
         try:
-          try:
-            return self.__converters[arg_type](arg_value)
-          except KeyError:
-            return arg_type(arg_value)
+            try:
+                return self.__converters[arg_type](arg_value)
+            except KeyError:
+                return arg_type(arg_value)
         except:
-          msg = "While calling %s, offered value for argument '%s' was '%s', which cannot be converted to %s!"
-          params = (self.function_signature(), arg_name, arg_value, arg_type)
-          raise TypeError(msg % params)
+            msg = "While calling %s, offered value for argument '%s' was '%s' "\
+                  "which cannot be converted to %s!"
+            params = (self.function_signature(), arg_name, arg_value, arg_type)
+
+            # TODO: Convert or exceptions to own types.
+            raise TypeError(msg % params)
 
     def boolean_conversion(self, value):
         """
@@ -74,21 +78,21 @@ class type_converted:
         (True, False)
         """
         if isinstance(value, bool):
-          return value
+            return value
 
         elif isinstance(value, str):
-          if value.lower() == "true":
-            return True
-          if value.lower() == "false":
-            return False
+            if value.lower() == "true":
+                return True
+            if value.lower() == "false":
+                return False
 
         elif isinstance(value, int):
-          if not value:
-            return False
-          if value == 1:
-            return True
+            if not value:
+                return False
+            if value == 1:
+                return True
 
-        raise TypeError()
+        raise TypeError()  # This will be caught by convert method.
 
     def __get__(self, instance, clazz):
         """
@@ -110,10 +114,10 @@ class type_converted:
         # stored it in __get__ and now add it to argument list so that
         # function can be invoked correctly.
         if self.__self:
-          args = (self.__self, ) + args
+            args = (self.__self, ) + args
 
         for spec, arg in itertools.zip_longest(specs.args, args, fillvalue=None):
-          yield self.__function.__annotations__.get(spec, None), spec, arg
+            yield self.__function.__annotations__.get(spec, None), spec, arg
 
     def function_signature(self):
         """
@@ -127,9 +131,9 @@ class type_converted:
         sig = str(inspect.signature(self.__function))
         name = self.__function.__name__
         if self.__self:
-          return "%s.%s%s" % (self.__self.__class__.__name__, name, sig)
+            return "%s.%s%s" % (self.__self.__class__.__name__, name, sig)
         else:
-          return "%s%s" % (name, sig)
+            return "%s%s" % (name, sig)
 
     def __call__(self, *args, **kwargs):
         """
@@ -137,7 +141,7 @@ class type_converted:
         """
         new_args = []
         for arg_type, arg_name, arg_value in self.iter_positional_args(args):
-          new_args.append(self.convert(arg_type, arg_name, arg_value))
+            new_args.append(self.convert(arg_type, arg_name, arg_value))
         return self.__function(*new_args, **kwargs)
 
 

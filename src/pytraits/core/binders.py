@@ -18,124 +18,44 @@
 
 import sys
 
-# In Python 3, we have single way to bind methods to class
-if sys.version_info.major == 3:
-    def bind_method_to_class(clazz, method, name=None):
-        """
-        Binds a single method into class.
 
-        This can be very useful in situation, where your trait properties
-        are dynamic, and you first need to construct your trait in some
-        fashion and after the trait is ready, you can transfer the qualities
-        to some class (You don't have always full control to creation
-        process).
+def bind_method_to_class(clazz, method, name=None):
+    """
+    Binds a single method into class.
 
-        @param clazz: Class to be extended
-        @param method: Method that is added as a trait into class
-        @param name: New name for the method. When omitted, original is used.
+    This can be very useful in situation, where your trait properties
+    are dynamic, and you first need to construct your trait in some
+    fashion and after the trait is ready, you can transfer the qualities
+    to some class (You don't have always full control to creation
+    process).
 
-        >>> class MyClass(object):
-        ...     def __init__(self):
-        ...         self._value = 42
-        ...
-        >>> class MyTrait(object):
-        ...     def __init__(self):
-        ...         self._value = 0
-        ...
-        ...     def trait_method(self):
-        ...         return self.__class__.__name__, self._value
-        ...
-        >>> my_trait = MyTrait()
-        >>> bind_method_to_class(MyClass, my_trait.trait_method)
-        >>> MyClass().trait_method()
-        ('MyClass', 42)
+    @param clazz: Class to be extended
+    @param method: Method that is added as a trait into class
+    @param name: New name for the method. When omitted, original is used.
 
-        >>> my_trait.trait_method()
-        ('MyTrait', 0)
-        """
-        # Rip out the original function from the class and set it also
-        # as member of our new class.
-        clazz_function = method.__self__.__class__.__dict__[method.__name__]
-        setattr(clazz, name or method.__name__, clazz_function)
+    >>> class MyClass(object):
+    ...     def __init__(self):
+    ...         self._value = 42
+    ...
+    >>> class MyTrait(object):
+    ...     def __init__(self):
+    ...         self._value = 0
+    ...
+    ...     def trait_method(self):
+    ...         return self.__class__.__name__, self._value
+    ...
+    >>> my_trait = MyTrait()
+    >>> bind_method_to_class(MyClass, my_trait.trait_method)
+    >>> MyClass().trait_method()
+    ('MyClass', 42)
 
-# In Python 2, we have two types of methods (bound and unbound) that we need to
-# bind to class.
-else:
-    def bind_bound_method_to_class(clazz, method, name=None):
-        """
-        Binds a single method into class.
-
-        This can be very useful in situation, where your trait properties
-        are dynamic, and you first need to construct your trait in some
-        fashion and after the trait is ready, you can transfer the qualities
-        to some class (You don't have always full control to creation
-        process).
-
-        @param clazz: Class to be extended
-        @param method: Method that is added as a trait into class
-        @param name: New name for the method. When omitted, original is used.
-
-        >>> class MyClass(object):
-        ...     def __init__(self):
-        ...         self._value = 42
-        ...
-        >>> class MyTrait(object):
-        ...     def __init__(self):
-        ...         self._value = 0
-        ...
-        ...     def trait_method(self):
-        ...         return self.__class__.__name__, self._value
-        ...
-        >>> my_trait = MyTrait()
-        >>> bind_bound_method_to_class(MyClass, my_trait.trait_method)
-        >>> MyClass().trait_method()
-        ('MyClass', 42)
-
-        >>> my_trait.trait_method()
-        ('MyTrait', 0)
-        """
-        # Rip out the original function from the class and set it also
-        # as member of our new class.
-        clazz_function = method.__self__.__class__.__dict__[method.__name__]
-        setattr(clazz, name or method.__name__, clazz_function)
-
-
-    def bind_unbound_method_to_class(clazz, method, name=None):
-        """
-        Binds a single method into class.
-
-        This can be very useful in situation, where your trait properties
-        are dynamic, and you first need to construct your trait in some
-        fashion and after the trait is ready, you can transfer the qualities
-        to some class (You don't have always full control to creation
-        process).
-
-        @param clazz: Class to be extended
-        @param method: Method that is added as a trait into class
-        @param name: New name for the method. When omitted, original is used.
-
-        >>> class MyClass(object):
-        ...     def __init__(self):
-        ...         self._value = 42
-        ...
-        >>> class MyTrait(object):
-        ...     def __init__(self):
-        ...         self._value = 0
-        ...
-        ...     def trait_method(self):
-        ...         return self.__class__.__name__, self._value
-        ...
-        >>> bind_unbound_method_to_class(MyClass, MyTrait.trait_method)
-        >>> MyClass().trait_method()
-        ('MyClass', 42)
-
-        >>> MyTrait().trait_method()
-        ('MyTrait', 0)
-        """
-        # For unbound methods, it is enough that we dig out the class function
-        # and set it as a member of new class.
-        clazz_function = method.im_class.__dict__[method.__name__]
-        setattr(clazz, name or method.__name__, clazz_function)
+    >>> my_trait.trait_method()
+    ('MyTrait', 0)
+    """
+    # Rip out the original function from the class and set it also
+    # as member of our new class.
+    clazz_function = method.__self__.__class__.__dict__[method.__name__]
+    setattr(clazz, name or method.__name__, clazz_function)
 
 
 def bind_function_to_class(clazz, function, name=None):
@@ -189,105 +109,35 @@ def bind_property_to_class(clazz, prop, name):
     """
     setattr(clazz, name, prop)
 
-if sys.version_info.major == 3:
-    def bind_method_to_instance(instance, method, name=None):
-        """
-        @param instance: Instance to be extended.
-        @param name: New name for the method. When omitted, original is used.
 
-        >>> class MyClass(object):
-        ...     def __init__(self):
-        ...         self._value = 327
-        ...
-        >>> class MyTrait(object):
-        ...     def __init__(self):
-        ...         self._value = 331
-        ...
-        ...     def method(self):
-        ...         return self.__class__.__name__, self._value
-        ...
-        >>> instance = MyClass()
-        >>> trait = MyTrait()
-        >>> bind_method_to_instance(instance, trait.method)
-        >>> instance.method()
-        ('MyClass', 327)
+def bind_method_to_instance(instance, method, name=None):
+    """
+    @param instance: Instance to be extended.
+    @param name: New name for the method. When omitted, original is used.
 
-        >>> trait.method()
-        ('MyTrait', 331)
-        """
-        clazz_function = method.__self__.__class__.__dict__[method.__name__]
-        bound_method = clazz_function.__get__(instance, instance.__class__)
-        instance.__dict__[name or method.__name__] = bound_method
-else:
-    def bind_unbound_method_to_instance(instance, method, name=None):
-        """
-        Binds a single method into class.
+    >>> class MyClass(object):
+    ...     def __init__(self):
+    ...         self._value = 327
+    ...
+    >>> class MyTrait(object):
+    ...     def __init__(self):
+    ...         self._value = 331
+    ...
+    ...     def method(self):
+    ...         return self.__class__.__name__, self._value
+    ...
+    >>> instance = MyClass()
+    >>> trait = MyTrait()
+    >>> bind_method_to_instance(instance, trait.method)
+    >>> instance.method()
+    ('MyClass', 327)
 
-        This can be very useful in situation, where your trait properties
-        are dynamic, and you first need to construct your trait in some
-        fashion and after the trait is ready, you can transfer the qualities
-        to some class (You don't have always full control to creation
-        process).
-
-        @param clazz: Class to be extended
-        @param method: Method that is added as a trait into class
-        @param name: New name for the method. When omitted, original is used.
-
-        >>> class MyClass(object):
-        ...     def __init__(self):
-        ...         self._value = 42
-        ...
-        >>> class MyTrait(object):
-        ...     def __init__(self):
-        ...         self._value = 0
-        ...
-        ...     def trait_method(self):
-        ...         return self.__class__.__name__, self._value
-        ...
-        >>> instance = MyClass()
-        >>> bind_unbound_method_to_instance(instance, MyTrait.trait_method)
-        >>> instance.trait_method()
-        ('MyClass', 42)
-
-        >>> MyTrait().trait_method()
-        ('MyTrait', 0)
-        """
-        # For unbound methods, it is enough that we dig out the class function,
-        # bind it to new instance and add it as a instance member.
-        clazz_function = method.im_class.__dict__[method.__name__]
-        bound_method = clazz_function.__get__(instance, instance.__class__)
-        instance.__dict__[name or method.__name__] = bound_method
-
-
-    def bind_bound_method_to_instance(instance, method, name=None):
-        """
-
-        @param instance: Instance to be extended.
-        @param name: New name for the method. When omitted, original is used.
-
-        >>> class MyClass(object):
-        ...     def __init__(self):
-        ...         self._value = 327
-        ...
-        >>> class MyTrait(object):
-        ...     def __init__(self):
-        ...         self._value = 331
-        ...
-        ...     def method(self):
-        ...         return self.__class__.__name__, self._value
-        ...
-        >>> instance = MyClass()
-        >>> trait = MyTrait()
-        >>> bind_bound_method_to_instance(instance, trait.method)
-        >>> instance.method()
-        ('MyClass', 327)
-
-        >>> trait.method()
-        ('MyTrait', 331)
-        """
-        clazz_function = method.__self__.__class__.__dict__[method.__name__]
-        bound_method = clazz_function.__get__(instance, instance.__class__)
-        instance.__dict__[name or method.__name__] = bound_method    
+    >>> trait.method()
+    ('MyTrait', 331)
+    """
+    clazz_function = method.__self__.__class__.__dict__[method.__name__]
+    bound_method = clazz_function.__get__(instance, instance.__class__)
+    instance.__dict__[name or method.__name__] = bound_method
 
 
 def bind_function_to_instance(instance, function, name=None):

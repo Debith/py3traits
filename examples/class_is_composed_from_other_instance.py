@@ -19,8 +19,8 @@ class ExampleClass(object):
 
 
 # Then we create a class which contains different types of methods that will be
-# transferred as a part of the class above. Note that ExampleTrait requires target 
-# object to contain class variables and instance variables, thus it won't work as a 
+# transferred as a part of the class above. Note that ExampleTrait requires target
+# object to contain class variables and instance variables, thus it won't work as a
 # stand-alone object.
 class ExampleTrait(object):
     @staticmethod
@@ -47,7 +47,7 @@ ExampleClass.add_traits(ExampleTrait())
 # that there is no inheritance done for ExampleClass.
 assert ExampleClass.__bases__ == (object, ), "Inheritance has occurred!"
 assert ExampleClass.static_method() == (1, 2, 3), "Class composition fails with static method!"
-assert ExampleClass.class_method() == (24, 25, 26), "Class composition fails with class method!"
-assert ExampleClass().class_method() == (24, 25, 26), "Class composition fails with class method in instance!"
+assert ExampleClass.class_method() == (24, 25, 26), "Class composition fails with classmethod!"
+assert ExampleClass().class_method() == (24, 25, 26), "Class composition fails with classmethod in instance!"
 assert ExampleClass().instance_method() == (42, 43, 44), "Class composition fails with instance method!"
 assert ExampleClass().value == (42, 43, 44), "Class composition fails with property!"

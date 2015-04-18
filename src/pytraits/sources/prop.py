@@ -18,6 +18,7 @@
 
 from pytraits.sources.routine import RoutineSource
 
+
 class PropertySource:
     def __init__(self, prop, name):
         self._property = prop
@@ -29,4 +30,4 @@ class PropertySource:
         setattr(clazz, self._name, property(getattr(clazz, self._property.fget.__name__)))
 
     def for_instance(self, instance):
-        setattr(instance.__class__, self._name, self._property)        
+        setattr(instance.__class__, self._name, self._property)

@@ -18,6 +18,7 @@
 
 from pytraits.trait_composer import add_traits
 
+
 def extendable(target):
     """
     Decorator that adds function for object to be extended using traits.

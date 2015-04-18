@@ -18,9 +18,11 @@
 
 import inspect
 
-from pytraits.core.errors import  UnextendableObjectError
+
+from pytraits.core.errors import UnextendableObjectError
 from pytraits.targets.clazz import ClassTarget
 from pytraits.targets.instance import InstanceTarget
+
 
 class TraitTarget(object):
     """

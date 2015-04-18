@@ -47,7 +47,7 @@ class Singleton(type):
     >>> MySingleton().new_item = False
     Traceback (most recent call last):
     ...
-    errors.SingletonError: Singletons are immutable
+    pytraits.core.errors.SingletonError: Singletons are immutable
     """
     def __call__(self, *args, **kwargs):
         try:
@@ -60,7 +60,7 @@ class Singleton(type):
             self.__setitem__ = immutable_object
             self.__setattr__ = immutable_object
             return self.__instance
-        
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()

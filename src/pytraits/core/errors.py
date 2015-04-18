@@ -27,6 +27,6 @@ for exception, message in dict(globals()).items():
     if not exception.endswith('Error'):
         continue
     bases = (Exception,)
-    attrs =  {'_MSG': message,
-              '__str__': lambda self: self._MSG}
+    attrs = {'_MSG': message,
+             '__str__': lambda self: self._MSG}
     globals()[exception] = type(exception, bases, attrs)

@@ -38,14 +38,14 @@ class InstanceSource(object):
                 continue
 
             if item.name.startswith('__') and item.name.endswith('__') and item.kind == "data":
-                continue # Ignore more builtin stuff
+                continue  # Ignore more builtin stuff
 
             if item.kind == "class method":
                 yield RoutineSource(item.object.__func__)
             elif item.kind == "static method":
                 yield RoutineSource(item.object.__func__)
             elif item.kind == "data":
-                pass # no support yet
+                pass  # no support yet
             elif item.kind == "method":
                 yield RoutineSource(item.object)
             elif item.kind == "property":

@@ -16,9 +16,9 @@
    limitations under the License.
 '''
 
-__version__ = "0.1.0"
-
 from pytraits.core import Singleton
 from pytraits.combiner import combine_class
 from pytraits.extendable import extendable
 from pytraits.trait_composer import add_traits
+
+__version__ = "0.1.0"

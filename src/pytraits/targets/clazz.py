@@ -16,6 +16,7 @@
    limitations under the License.
 '''
 
+
 class ClassTarget(object):
     """
     """

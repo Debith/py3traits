@@ -24,6 +24,7 @@ from pytraits.sources.instance import InstanceSource
 from pytraits.sources.routine import RoutineSource
 from pytraits.sources.prop import PropertySource
 
+
 class TraitSource(object):
     """
     Creates trait source object.

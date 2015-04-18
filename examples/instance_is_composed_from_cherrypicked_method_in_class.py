@@ -19,8 +19,8 @@ class ExampleClass(object):
 
 
 # Then we create a class which contains different types of methods that will be
-# transferred as a part of the class above. Note that ExampleTrait requires target 
-# object to contain class variables and instance variables, thus it won't work as a 
+# transferred as a part of the class above. Note that ExampleTrait requires target
+# object to contain class variables and instance variables, thus it won't work as a
 # stand-alone object.
 class ExampleTrait(object):
     @staticmethod
@@ -37,8 +37,8 @@ class ExampleTrait(object):
 
 # Create instance of target class and cherry-pick methods from ExampleTrait class.
 example_instance = ExampleClass()
-example_instance.add_traits(ExampleTrait.instance_method, 
-                            ExampleTrait.class_method, 
+example_instance.add_traits(ExampleTrait.instance_method,
+                            ExampleTrait.class_method,
                             ExampleTrait.static_method)
 
 

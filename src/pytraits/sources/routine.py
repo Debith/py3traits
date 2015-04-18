@@ -24,6 +24,7 @@ import collections
 __all__ = ['RoutineSource']
 
 
+# TODO: Refactor to class
 def clone_function(function):
     trait = collections.OrderedDict()
     trait["co_argcount"] = function.__code__.co_argcount
@@ -46,7 +47,7 @@ def clone_function(function):
 def transfer_names(trait, clazz):
     items = []
     for item in trait["co_names"]:
-        if not "__" in item:
+        if "__" not in item:
             items.append(item)
         else:
             items.append("_%s%s" % (clazz.__name__, item[item.index('__'):]))
@@ -61,7 +62,7 @@ def recompile(function, target, name):
     trait = clone_function(function)
     transfer_names(trait, target)
     trait["co_name"] = name or trait["co_name"]
-    return compile_trait(trait, function.__globals__)    
+    return compile_trait(trait, function.__globals__)
 
 
 class RoutineSource(object):
@@ -92,15 +93,13 @@ class RoutineSource(object):
     'UnboundFunctionSource'
 
     >>> RoutineSource(Example.static_method).__class__.__name__
-    'UnboundFunctionSource'
+    'StaticMethodSource'
 
     >>> RoutineSource(Example.class_method).__class__.__name__
     'ClassMethodSource'
 
     >>> RoutineSource(instance.method).__class__.__name__
     'BoundFunctionSource'
-
-    >>> type(Example.static_method)
     """
     def __new__(self, routine, name=None):
         try:
@@ -114,17 +113,17 @@ class RoutineSource(object):
             if inspect.isclass(routine.__self__):
                 return ClassMethodSource(routine, name)
             return BoundFunctionSource(routine, name)
-        else:            
+        else:
             if first_arg == 'self':
                 return UnboundFunctionSource(routine, name)
             elif first_arg == 'cls':
                 return ClassMethodSource(routine, name)
-            else: # static
+            else:  # static
                 return StaticMethodSource(routine, name)
 
 
 class BoundFunctionSource:
-    def __init__(self, function, name = None):
+    def __init__(self, function, name=None):
         self._function = function
         self._name = name or function.__name__
 
@@ -133,13 +132,13 @@ class BoundFunctionSource:
         setattr(clazz, self._name, new_method.__get__(None, clazz))
 
     def for_instance(self, instance):
-        new_method = recompile(self._function, instance.__class__, self._name)  
-        bound_method = new_method.__get__(instance, instance.__class__)    
+        new_method = recompile(self._function, instance.__class__, self._name)
+        bound_method = new_method.__get__(instance, instance.__class__)
         instance.__dict__[self._name] = bound_method
 
 
 class ClassMethodSource:
-    def __init__(self, function, name = None):
+    def __init__(self, function, name=None):
         self._function = function
         self._name = name or function.__name__
 
@@ -148,13 +147,13 @@ class ClassMethodSource:
         setattr(clazz, self._name, new_method.__get__(clazz, clazz))
 
     def for_instance(self, instance):
-        new_method = recompile(self._function, instance.__class__, self._name)  
-        bound_method = new_method.__get__(instance, instance.__class__)    
+        new_method = recompile(self._function, instance.__class__, self._name)
+        bound_method = new_method.__get__(instance, instance.__class__)
         instance.__dict__[self._name] = bound_method
 
 
 class UnboundFunctionSource:
-    def __init__(self, function, name = None):
+    def __init__(self, function, name=None):
         self._function = function
         self._name = name or function.__name__
 
@@ -162,13 +161,13 @@ class UnboundFunctionSource:
         setattr(clazz, self._name, recompile(self._function, clazz, self._name))
 
     def for_instance(self, instance):
-        new_method = recompile(self._function, instance.__class__, self._name)    
-        bound_method = new_method.__get__(instance, instance.__class__)  
+        new_method = recompile(self._function, instance.__class__, self._name)
+        bound_method = new_method.__get__(instance, instance.__class__)
         instance.__dict__[self._name] = bound_method
 
 
 class StaticMethodSource:
-    def __init__(self, function, name = None):
+    def __init__(self, function, name=None):
         self._function = function
         self._name = name or self._function.__name__
 
@@ -181,10 +180,10 @@ class StaticMethodSource:
             setattr(clazz, self._name, staticmethod(new_method))
 
     def for_instance(self, instance):
-        method = recompile(self._function, instance.__class__, self._name)    
+        method = recompile(self._function, instance.__class__, self._name)
         instance.__dict__[self._name] = method
 
 
-if __name__  == "__main__":
+if __name__ == "__main__":
     import doctest
     doctest.testmod()
