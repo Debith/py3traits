@@ -22,3 +22,4 @@ from pytraits.extendable import extendable
 from pytraits.trait_composer import add_traits
 
 __version__ = "0.1.0"
+__all__ = ["Singleton", "combine_class", "extendable", "add_traits"]

@@ -16,8 +16,6 @@
    limitations under the License.
 '''
 
-import sys
-
 
 def bind_method_to_class(clazz, method, name=None):
     """

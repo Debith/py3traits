@@ -17,3 +17,5 @@
 '''
 
 from pytraits.targets.factory import TraitTarget
+
+__all__ = ["TraitTarget"]

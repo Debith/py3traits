@@ -16,7 +16,6 @@
    limitations under the License.
 '''
 
-import sys
 import inspect
 
 from pytraits.sources.routine import RoutineSource

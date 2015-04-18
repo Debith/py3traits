@@ -17,7 +17,6 @@
 '''
 
 import inspect
-import functools
 import itertools
 
 

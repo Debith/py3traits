@@ -16,9 +16,9 @@
    limitations under the License.
 '''
 
-import sys
 import inspect
 
+from pytraits.core.errors import BuiltinSourceError, PropertySourceError
 from pytraits.sources.clazz import ClassSource
 from pytraits.sources.instance import InstanceSource
 from pytraits.sources.routine import RoutineSource
@@ -31,7 +31,7 @@ class TraitSource(object):
     """
     def __new__(self, obj):
         if getattr(obj, '__module__', '') == 'builtins':
-            return InvalidSource('Built-in objects can not used as traits!')
+            raise BuiltinSourceError()
         elif inspect.isroutine(obj):
             return RoutineSource(obj)
         elif inspect.isdatadescriptor(obj):
@@ -41,4 +41,4 @@ class TraitSource(object):
         elif not isinstance(obj, type):
             return InstanceSource(obj)
         else:
-            return InvalidSource('Properties can not be extended!')
+            raise PropertySourceError()

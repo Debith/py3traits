@@ -18,3 +18,5 @@
 
 from pytraits.sources.traits import Traits
 from pytraits.sources.factory import TraitSource
+
+__all__ = ["Traits", "TraitSource"]

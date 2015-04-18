@@ -16,7 +16,6 @@
    limitations under the License.
 '''
 
-import sys
 import types
 import inspect
 import collections
@@ -28,8 +27,7 @@ __all__ = ['RoutineSource']
 def clone_function(function):
     trait = collections.OrderedDict()
     trait["co_argcount"] = function.__code__.co_argcount
-    if sys.version_info[0] == 3:
-        trait["co_kwonlyargcount"] = function.__code__.co_kwonlyargcount
+    trait["co_kwonlyargcount"] = function.__code__.co_kwonlyargcount
     trait["co_nlocals"] = function.__code__.co_nlocals
     trait["co_stacksize"] = function.__code__.co_stacksize
     trait["co_flags"] = function.__code__.co_flags
@@ -171,13 +169,8 @@ class StaticMethodSource:
         self._function = function
         self._name = name or self._function.__name__
 
-    if sys.version_info[0] == 3:
-        def for_class(self, clazz):
-            setattr(clazz, self._name, recompile(self._function, clazz, self._name))
-    else:
-        def for_class(self, clazz):
-            new_method = recompile(self._function, clazz, self._name)
-            setattr(clazz, self._name, staticmethod(new_method))
+    def for_class(self, clazz):
+        setattr(clazz, self._name, recompile(self._function, clazz, self._name))
 
     def for_instance(self, instance):
         method = recompile(self._function, instance.__class__, self._name)

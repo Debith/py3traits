@@ -20,6 +20,8 @@
 UnextendableObjectError = "Target context can be only class or instance of class"
 InvalidAssignmentError = "Not possible to assign a key"
 SingletonError = 'Singletons are immutable'
+BuiltinSourceError = 'Built-in objects can not used as traits!'
+PropertySourceError = 'Properties can not be extended!'
 
 
 # Convert strings to exception objects

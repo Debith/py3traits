@@ -8,7 +8,7 @@ py3traits
     :target: https://readthedocs.org/projects/py3traits
     :alt: Documentation Status
 
-.. |travis| image:: http://img.shields.io/travis/Debith/pytraits/master.png?style=flat
+.. |travis| image:: http://img.shields.io/travis/Debith/py3traits/master.png?style=flat
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/Debith/py3traits
 
