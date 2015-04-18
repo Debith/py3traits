@@ -10,7 +10,7 @@ py3traits
 
 .. |travis| image:: http://img.shields.io/travis/Debith/pytraits/master.png?style=flat
     :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/Debith/pytraits
+    :target: https://travis-ci.org/Debith/py3traits
 
 Trait support for Python 3
 
