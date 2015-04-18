@@ -2,14 +2,14 @@
 Changelog
 =========
 
-0.11.0 (2014-01-01)
+0.11.0 (2015-04-18)
 -------------------
   - PEP8 fixes
   - General cleaning for all files
   - Removed unused parts
   - Removed Python 2 code
 
-0.10.0 (2014-01-01)
+0.10.0 (2015-03-30)
 -------------------
   - Splitting into two projects: py2traits and py3traits
   - Taking new project template to use from cookiecutter.
