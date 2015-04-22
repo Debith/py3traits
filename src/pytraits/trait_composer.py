@@ -18,10 +18,9 @@
 
 from pytraits.core import Singleton, type_converted
 from pytraits.targets import TraitTarget
-from pytraits.sources import Traits
 
 
-class TraitComposer:
+class TraitComposer(metaclass=Singleton):
     """
     Main class that handles composing traits into target object.
 
@@ -38,10 +37,8 @@ class TraitComposer:
     >>> ExampleClass().other_method()
     42
     """
-    __metaclass__ = Singleton
-
     @type_converted
-    def bind_traits(self, target: TraitTarget, *traits):
+    def bind_traits(self, target: TraitTarget, *traits, **resolutions):
         """
         Bind new traits to given object.
 
@@ -56,7 +53,7 @@ class TraitComposer:
             return
 
         # Compose traits into target object
-        target.add_traits(Traits(traits))
+        target.add_traits(traits, resolutions)
 
 
 add_traits = TraitComposer().bind_traits

@@ -45,7 +45,11 @@ ExampleClass.add_traits(ExampleTrait.instance_method,
 # Here are the proofs that composed methods work as part of new class.
 # Also we show that there is no inheritance done for ExampleClass.
 assert ExampleClass.__bases__ == (object, ), "Inheritance has occurred!"
-assert ExampleClass.static_method() == (1, 2, 3), "Class composition fails with classmethod in class!"
-assert ExampleClass.class_method() == (24, 25, 26), "Class composition fails with class method in class!"
-assert ExampleClass().class_method() == (24, 25, 26), "Class composition fails with class method in instance!"
-assert ExampleClass().instance_method() == (42, 43, 44), "Class composition fails with instance method!"
+assert ExampleClass.static_method() == (1, 2, 3),\
+    "Class composition fails with classmethod in class!"
+assert ExampleClass.class_method() == (24, 25, 26),\
+    "Class composition fails with class method in class!"
+assert ExampleClass().class_method() == (24, 25, 26),\
+    "Class composition fails with class method in instance!"
+assert ExampleClass().instance_method() == (42, 43, 44),\
+    "Class composition fails with instance method!"

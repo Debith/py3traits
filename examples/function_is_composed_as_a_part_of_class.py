@@ -35,7 +35,11 @@ ExampleClass.add_traits(new_method, new_class_function, new_static_function)
 
 
 # Here are the proofs that composed functions work as part of new class.
-assert ExampleClass.new_static_function() == (1, 2, 3), "Class composition fails with class method in class!"
-assert ExampleClass.new_class_function() == (24, 25, 26), "Class composition fails with classmethod in class!"
-assert ExampleClass().new_class_function() == (24, 25, 26), "Class composition fails with classmethod in instance!"
-assert ExampleClass().new_method() == (42, 43, 44), "Class composition fails with instance method!"
+assert ExampleClass.new_static_function() == (1, 2, 3),\
+    "Class composition fails with class method in class!"
+assert ExampleClass.new_class_function() == (24, 25, 26),\
+    "Class composition fails with classmethod in class!"
+assert ExampleClass().new_class_function() == (24, 25, 26),\
+    "Class composition fails with classmethod in instance!"
+assert ExampleClass().new_method() == (42, 43, 44),\
+    "Class composition fails with instance method!"

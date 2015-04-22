@@ -23,14 +23,12 @@ class ExampleTrait(object):
         return self.public, self._hidden, self.__private
 
 
-try:
-    # We don't support this yet. Property does not have name, thus we need to
-    # support renaming of trait before this can work.
-    raise NotImplementedError('')
-except NotImplementedError:
-    ExampleClass.add_traits(ExampleTrait)
+# Then add the property as a part of our new class simply by referring it.
+ExampleClass.add_traits(ExampleTrait.trait_property)
 
-    # Here are the proofs that composed property works as part of new class.
-    # Also we show that there is no inheritance done for ExampleClass instance.
-    assert ExampleClass.__bases__ == (object, ), "Inheritance has occurred!"
-    assert ExampleClass().trait_property == (42, 43, 44), "Cherry-picked property not working in new class!"
+
+# Here are the proofs that composed property works as part of new class.
+# Also we show that there is no inheritance done for ExampleClass instance.
+assert ExampleClass.__bases__ == (object, ), "Inheritance has occurred!"
+assert ExampleClass().trait_property == (42, 43, 44),\
+    "Cherry-picked property not working in new class!"

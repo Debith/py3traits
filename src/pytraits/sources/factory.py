@@ -29,16 +29,16 @@ class TraitSource(object):
     """
     Creates trait source object.
     """
-    def __new__(self, obj):
+    def __new__(self, obj, resolutions):
         if getattr(obj, '__module__', '') == 'builtins':
             raise BuiltinSourceError()
         elif inspect.isroutine(obj):
-            return RoutineSource(obj)
+            return RoutineSource(obj, resolutions.get(obj.__name__, None))
         elif inspect.isdatadescriptor(obj):
-            return PropertySource(obj)
+            return PropertySource(obj, resolutions)
         elif inspect.isclass(obj):
-            return ClassSource(obj)
+            return ClassSource(obj, resolutions)
         elif not isinstance(obj, type):
-            return InstanceSource(obj)
+            return InstanceSource(obj, resolutions)
         else:
             raise PropertySourceError()

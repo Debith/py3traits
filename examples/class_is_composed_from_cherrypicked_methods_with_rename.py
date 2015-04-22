@@ -35,23 +35,23 @@ class ExampleTrait(object):
         return self.public, self._hidden, self.__private
 
 
-# Create instance of target class and cherry-pick methods from ExampleTrait class.
-example_instance = ExampleClass()
-example_instance.add_traits(ExampleTrait.instance_method,
-                            ExampleTrait.class_method,
-                            ExampleTrait.static_method)
-
+# Then, here we do the actual composition, where we cherry-pick each method from
+# ExampleTrait and compose them into ExampleClass. While we do that, we also
+# specify function names as keyword parameters to change the name of the
+# functions.
+ExampleClass.add_traits(ExampleTrait.instance_method,
+                        ExampleTrait.class_method,
+                        ExampleTrait.static_method,
+                        instance_method="renamed_instance_method",
+                        class_method="renamed_class_method",
+                        static_method="renamed_static_method")
 
 # Here are the proofs that composed methods work as part of new class.
-assert example_instance.instance_method() == (42, 43, 44),\
-    "Instance composition fails with instance method!"
-assert example_instance.class_method() == (24, 25, 26),\
-    "Instance composition fails with class method in instance!"
-assert example_instance.static_method() == (1, 2, 3),\
-    "Instance composition fails with class method in instance!"
-assert not hasattr(ExampleClass, "new_static_function"),\
-    "Instance composition fails due to class has changed!"
-assert not hasattr(ExampleClass, "new_class_function"),\
-    "Instance composition fails due to class has changed!"
-assert not hasattr(ExampleClass, "new_method"),\
-    "Instance composition fails due to class has changed!"
+assert ExampleClass.renamed_static_method() == (1, 2, 3),\
+    "Class composition fails with classmethod in class!"
+assert ExampleClass.renamed_class_method() == (24, 25, 26),\
+    "Class composition fails with class method in class!"
+assert ExampleClass().renamed_class_method() == (24, 25, 26), \
+    "Class composition fails with class method in instance!"
+assert ExampleClass().renamed_instance_method() == (42, 43, 44),\
+    "Class composition fails with instance method!"

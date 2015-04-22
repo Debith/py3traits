@@ -26,7 +26,7 @@ Installation
 Documentation
 =============
 
-https://pytraits.readthedocs.org/
+https://py3traits.readthedocs.org/
 
 Development
 ===========
@@ -57,7 +57,7 @@ Features
     - [X] Cherry-picking
     - [ ] Symmertric Sum
     - [ ] Override
-    - [ ] Alias
+    - [X] Alias (rename)
     - [ ] Exclusion
  - Supported Trait Targets
     - [X] Classes

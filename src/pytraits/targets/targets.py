@@ -18,24 +18,45 @@
 
 import inspect
 
-
 from pytraits.core.errors import UnextendableObjectError
-from pytraits.targets.clazz import ClassTarget
-from pytraits.targets.instance import InstanceTarget
+from pytraits.sources import Traits
 
 
-class TraitTarget(object):
+class TraitTarget:
     """
     Creates trait target object.
     """
     def __new__(self, obj):
         if getattr(obj, '__module__', '') == 'builtins':
             raise UnextendableObjectError('Built-in objects can not be extended!')
+
         elif inspect.isroutine(obj):
             raise UnextendableObjectError('Function objects can not be extended!')
+
         elif not isinstance(obj, type):
-            return InstanceTarget(obj)
+            return Target(obj, "for_instance")
+
         elif inspect.isclass(obj):
-            return ClassTarget(obj)
+            return Target(obj, "for_class")
+
         else:
             raise UnextendableObjectError('Properties can not be extended!')
+
+
+class Target:
+    """
+    Encapsulates target object composition for classes and class instances.
+    """
+    def __init__(self, target, function_typename):
+        self._target = target
+        self._function_typename = function_typename
+
+    def add_traits(self, traits, resolutions):
+        traits = Traits(traits, resolutions)
+        for trait in traits:
+            getattr(trait, self._function_typename)(self._target)
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

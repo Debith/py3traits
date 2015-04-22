@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.12.0 (2015-04-22)
+-------------------
+  - New feature: Rename of composed traits
+  - Cleaning up parts belonging to py2traits
+
 0.11.0 (2015-04-18)
 -------------------
   - PEP8 fixes

@@ -16,6 +16,6 @@
    limitations under the License.
 '''
 
-from pytraits.targets.factory import TraitTarget
+from pytraits.targets.targets import TraitTarget
 
 __all__ = ["TraitTarget"]

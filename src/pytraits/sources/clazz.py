@@ -26,8 +26,9 @@ class ClassSource(object):
     """
 
     """
-    def __init__(self, clazz):
+    def __init__(self, clazz, resolutions):
         self._class = clazz
+        self.__resolutions = resolutions
 
     def __iter__(self):
         for item in inspect.classify_class_attrs(self._class):
@@ -48,6 +49,6 @@ class ClassSource(object):
             elif item.kind == "method":
                 yield RoutineSource(item.object)
             elif item.kind == "property":
-                yield PropertySource(item.object, item.name)
+                yield PropertySource(item.object, self.__resolutions)
             else:
                 raise TypeError("We do not recognize this item: %s" % item)

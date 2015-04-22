@@ -23,17 +23,17 @@ class ExampleTrait(object):
         return self.public, self._hidden, self.__private
 
 
-# Prepare instance for of trait for composition.
+# Create instance out of the trait class. Now we need to notice that we need
+# to refer to instance's class to get the property and transfer it to new
+# location. Using directly my_trait_instance.trait_property would naturally
+# invoke retrieval of the values (which in this case would not even exist and
+# and would raise an error).
 my_trait_instance = ExampleTrait()
+ExampleClass.add_traits(my_trait_instance.__class__.trait_property)
 
-try:
-    # We don't support this yet. Property does not have name, thus we need to
-    # support renaming of trait before this can work.
-    raise NotImplementedError('')
-except NotImplementedError:
-    ExampleClass.add_traits(my_trait_instance)
 
-    # Here are the proofs that composed property works as part of new class.
-    # Also we show that there is no inheritance done for ExampleClass instance.
-    assert ExampleClass.__bases__ == (object, ), "Inheritance has occurred!"
-    assert ExampleClass().trait_property == (42, 43, 44), "Cherry-picked property not working in new class!"
+# Here are the proofs that composed property works as part of new class.
+# Also we show that there is no inheritance done for ExampleClass instance.
+assert ExampleClass.__bases__ == (object, ), "Inheritance has occurred!"
+assert ExampleClass().trait_property == (42, 43, 44),\
+    "Cherry-picked property not working in new class!"

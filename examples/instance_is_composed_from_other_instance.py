@@ -43,9 +43,15 @@ example_instance.add_traits(my_trait_instance)
 
 # Here are the proofs that composed methods work as part of new instance. Also
 # we demonstrate that original class is still untouched.
-assert example_instance.static_method() == (1, 2, 3), "Class composition fails with static method!"
-assert example_instance.class_method() == (24, 25, 26), "Class composition fails with class method!"
-assert example_instance.instance_method() == (42, 43, 44), "Class composition fails with instance method!"
-assert not hasattr(ExampleClass, "new_static_function"), "Instance composition fails due to class has changed!"
-assert not hasattr(ExampleClass, "new_class_function"), "Instance composition fails due to class has changed!"
-assert not hasattr(ExampleClass, "new_method"), "Instance composition fails due to class has changed!"
+assert example_instance.static_method() == (1, 2, 3),\
+    "Class composition fails with static method!"
+assert example_instance.class_method() == (24, 25, 26),\
+    "Class composition fails with class method!"
+assert example_instance.instance_method() == (42, 43, 44),\
+    "Class composition fails with instance method!"
+assert not hasattr(ExampleClass, "new_static_function"),\
+    "Instance composition fails due to class has changed!"
+assert not hasattr(ExampleClass, "new_class_function"),\
+    "Instance composition fails due to class has changed!"
+assert not hasattr(ExampleClass, "new_method"),\
+    "Instance composition fails due to class has changed!"

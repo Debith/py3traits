@@ -16,14 +16,17 @@
    limitations under the License.
 '''
 
+import itertools
+
 from pytraits.core import flatten
 from pytraits.sources.factory import TraitSource
 
 
 class Traits(object):
-    def __init__(self, traits):
+    def __init__(self, traits, resolutions):
         self._traits = traits
+        self._resolutions = resolutions
 
     def __iter__(self):
-        for trait in flatten(map(TraitSource, self._traits)):
+        for trait in flatten(map(TraitSource, self._traits, itertools.repeat(self._resolutions))):
             yield trait
