@@ -47,7 +47,7 @@ class Singleton(type):
     >>> MySingleton().new_item = False
     Traceback (most recent call last):
     ...
-    pytraits.core.errors.SingletonError: Singletons are immutable
+    pytraits.core.errors.SingletonError: Singletons are immutable!
     """
     def __call__(self, *args, **kwargs):
         try:

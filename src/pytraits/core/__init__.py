@@ -18,6 +18,6 @@
 
 from pytraits.core.singleton import Singleton
 from pytraits.core.utils import flatten
-from pytraits.core.magic import type_converted
+from pytraits.core.magic import type_safe, type_converted
 
-__all__ = ["Singleton", "flatten", "type_converted"]
+__all__ = ["Singleton", "flatten", "type_safe", "type_converted"]

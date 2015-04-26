@@ -13,6 +13,7 @@ from os.path import splitext
 from setuptools import find_packages
 from setuptools import setup
 
+
 def read(*names, **kwargs):
     return io.open(
         join(dirname(__file__), *names),
@@ -22,7 +23,7 @@ def read(*names, **kwargs):
 
 setup(
     name='py3traits',
-    version='0.10.0',
+    version='0.13.0',
     license='Apache License 2',
     description='Trait support for Python 3',
     long_description='%s\n%s' % (read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),

@@ -18,17 +18,19 @@
 
 # Exceptions
 UnextendableObjectError = "Target context can be only class or instance of class"
-InvalidAssignmentError = "Not possible to assign a key"
-SingletonError = 'Singletons are immutable'
+SingletonError = 'Singletons are immutable!'
 BuiltinSourceError = 'Built-in objects can not used as traits!'
 PropertySourceError = 'Properties can not be extended!'
+TypeConversionError = 'Conversion impossible!'
 
 
 # Convert strings to exception objects
 for exception, message in dict(globals()).items():
     if not exception.endswith('Error'):
         continue
+
     bases = (Exception,)
-    attrs = {'_MSG': message,
-             '__str__': lambda self: self._MSG}
+    attrs = {'__default_msg': message,
+             '__init__': lambda self, msg=None: setattr(self, '__msg', msg),
+             '__str__': lambda self: self.__msg or self.__default_msg}
     globals()[exception] = type(exception, bases, attrs)

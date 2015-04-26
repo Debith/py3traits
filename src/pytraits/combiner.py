@@ -19,7 +19,7 @@
 from pytraits.trait_composer import add_traits
 
 
-def combine_class(*traits, **resolved_conflicts):
+def combine_class(class_name, *traits, **resolved_conflicts):
     """
     This function composes new class out of any number of traits.
 
@@ -32,12 +32,15 @@ def combine_class(*traits, **resolved_conflicts):
     >>> class Three:
     ...     def third(self): return 3
     ...
-    >>> Combination = combine_class(One, Two, Three)
+    >>> Combination = combine_class("Combination", One, Two, Three)
     >>> instance = Combination()
     >>> instance.first(), instance.second(), instance.third()
     (1, 2, 3)
+
+    >>> instance.__class__.__name__
+    'Combination'
     """
-    NewClass = type("NewClass", (object,), {})
+    NewClass = type(class_name, (object,), {})
     add_traits(NewClass, *traits)
     return NewClass
 

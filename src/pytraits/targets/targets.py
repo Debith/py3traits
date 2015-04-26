@@ -19,6 +19,7 @@
 import inspect
 
 from pytraits.core.errors import UnextendableObjectError
+from pytraits.core.magic import type_safe
 from pytraits.sources import Traits
 
 

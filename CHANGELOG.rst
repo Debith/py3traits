@@ -2,6 +2,13 @@
 Changelog
 =========
 
+0.13.0 (2015-04-25)
+-------------------
+  - New feature: Decorator type_safe to check function arguments
+  - New feature: combine_class function takes name for new class as first argument
+  - Refactoring magic.py to look less like black magic
+  - Improving errors.py exception class creation to accept custom messages
+
 0.12.0 (2015-04-22)
 -------------------
   - New feature: Rename of composed traits

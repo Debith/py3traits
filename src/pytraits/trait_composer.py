@@ -23,6 +23,10 @@ from pytraits.targets import TraitTarget
 class TraitComposer(metaclass=Singleton):
     """
     Main class that handles composing traits into target object.
+    This object is singleton as there really can be only one.
+
+    >>> id(TraitComposer()) == id(TraitComposer())
+    True
 
     >>> class ExampleClass:
     ...    def example_method(self):

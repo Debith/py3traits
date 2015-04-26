@@ -16,10 +16,11 @@
    limitations under the License.
 '''
 
-from pytraits.core import Singleton
+from pytraits.core import Singleton, type_safe, type_converted
 from pytraits.combiner import combine_class
 from pytraits.extendable import extendable
 from pytraits.trait_composer import add_traits
 
-__version__ = "0.1.0"
-__all__ = ["Singleton", "combine_class", "extendable", "add_traits"]
+__version__ = "0.13.0"
+__all__ = ["Singleton", "combine_class", "extendable", "add_traits",
+           "type_safe", "type_converted"]
