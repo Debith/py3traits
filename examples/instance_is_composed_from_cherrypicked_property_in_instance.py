@@ -36,14 +36,13 @@ class ExampleTrait(object):
 # location. Using directly my_trait_instance.trait_property would naturally
 # invoke retrieval of the values (which in this case would not even exist and
 # and would raise an error).
+example_instance = ExampleClass()
 my_trait_instance = ExampleTrait()
-ExampleClass.add_traits(my_trait_instance.__class__.trait_property)
+example_instance.add_traits(my_trait_instance.__class__.trait_property)
 
 
 # Here are the proofs that composed property works as part of new class.
 # Also we show that there is no inheritance done for ExampleClass instance.
-example_instance = ExampleClass()
-assert ExampleClass.__bases__ == (object, ), "Inheritance has occurred!"
 assert example_instance.trait_property == (42, 43, 44),\
     "Cherry-picked property not working in new class!"
 

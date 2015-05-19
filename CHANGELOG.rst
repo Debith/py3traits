@@ -2,6 +2,10 @@
 Changelog
 =========
 
+0.14.0 (2015-05-19)
+-------------------
+  - New feature: Setter and Deleter for properties are now supported
+
 0.13.0 (2015-04-25)
 -------------------
   - New feature: Decorator type_safe to check function arguments

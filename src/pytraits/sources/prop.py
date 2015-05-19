@@ -16,7 +16,7 @@
    limitations under the License.
 '''
 
-from pytraits.sources.routine import RoutineSource
+from pytraits.sources.routine import recompile
 
 
 class PropertySource:
@@ -24,11 +24,20 @@ class PropertySource:
         self._property = prop
         self._resolutions = resolutions
 
+    def __recompile_property_func(self, func_name, clazz, new_name):
+        func = getattr(self._property, func_name, None)
+        if func:
+            return recompile(func, clazz, new_name)
+
     def for_class(self, clazz):
-        name = self._resolutions.get(self._property.fget.__name__, self._property.fget.__name__)
-        getter = RoutineSource(self._property.fget, name)
-        getter.for_class(clazz)
-        setattr(clazz, name, property(getattr(clazz, name)))
+        name = self._resolutions.get(self._property.fget.__name__,
+                                     self._property.fget.__name__)
+
+        getter = self.__recompile_property_func('fget', clazz, name)
+        setter = self.__recompile_property_func('fset', clazz, name)
+        deleter = self.__recompile_property_func('fdel', clazz, name)
+
+        setattr(clazz, name, property(getter, setter, deleter))
 
     def for_instance(self, instance):
-        setattr(instance.__class__, self._name, self._property)
+        self.for_class(instance.__class__)

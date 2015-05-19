@@ -31,19 +31,12 @@ class ExampleTrait(object):
         self.public, self._hidden, self.__private = (42, 43, 44)
 
 
-# Create instance out of the trait class. Now we need to notice that we need
-# to refer to instance's class to get the property and transfer it to new
-# location. Using directly my_trait_instance.trait_property would naturally
-# invoke retrieval of the values (which in this case would not even exist and
-# and would raise an error).
-my_trait_instance = ExampleTrait()
-ExampleClass.add_traits(my_trait_instance.__class__.trait_property)
+# Then add the property as a part of our new class simply by referring it.
+example_instance = ExampleClass()
+example_instance.add_traits(ExampleTrait.trait_property)
 
 
 # Here are the proofs that composed property works as part of new class.
-# Also we show that there is no inheritance done for ExampleClass instance.
-example_instance = ExampleClass()
-assert ExampleClass.__bases__ == (object, ), "Inheritance has occurred!"
 assert example_instance.trait_property == (42, 43, 44),\
     "Cherry-picked property not working in new class!"
 
