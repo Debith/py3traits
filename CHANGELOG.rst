@@ -2,6 +2,12 @@
 Changelog
 =========
 
+0.15.0 (2015-05-23)
+-------------------
+  - New feature: Alternative syntax added to add_traits function
+  - Added example for alternative syntx
+  - Added example about creating new class from the traits
+
 0.14.0 (2015-05-19)
 -------------------
   - New feature: Setter and Deleter for properties are now supported

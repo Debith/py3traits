@@ -22,6 +22,8 @@ SingletonError = 'Singletons are immutable!'
 BuiltinSourceError = 'Built-in objects can not used as traits!'
 PropertySourceError = 'Properties can not be extended!'
 TypeConversionError = 'Conversion impossible!'
+FirstTraitArgumentError = 'First argument must not be string!'
+TraitArgumentTypeError = "Expected list of trait names for given source object!"
 
 
 # Convert strings to exception objects
