@@ -35,6 +35,14 @@ class TestTraits(unittest.TestCase):
         with self.assertRaises(TraitArgumentTypeError):
             traits.needs_preprocessing()
 
+    def test_raises_error_when_arguments_mixed_with_function_and_strings(self):
+        traits = Traits((lambda: None, "", ""), {})
+        with self.assertRaises(FirstTraitArgumentError):
+            traits.needs_preprocessing()
+
+    def test_needs_preprosessing_when_object_and_strings_are_given(self):
+        traits = Traits(({}, ""), {})
+        self.assertTrue(traits.needs_preprocessing())
 
 if __name__ == '__main__':
     unittest.main()

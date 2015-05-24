@@ -51,8 +51,8 @@ class Target:
         self._target = target
         self._function_typename = function_typename
 
-    def add_traits(self, traits):
-        for trait in traits:
+    def add_traits(self, traits, resolutions):
+        for trait in Traits.create(traits, resolutions):
             getattr(trait, self._function_typename)(self._target)
 
 
