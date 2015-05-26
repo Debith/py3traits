@@ -2,11 +2,7 @@
 py3traits
 ===============================
 
-| |docs| |travis|
-
-.. |docs| image:: https://readthedocs.org/projects/py3traits/badge/?style=flat
-    :target: https://readthedocs.org/projects/py3traits
-    :alt: Documentation Status
+| |travis|
 
 .. |travis| image:: http://img.shields.io/travis/Debith/py3traits/master.png?style=flat
     :alt: Travis-CI Build Status
@@ -22,11 +18,6 @@ Installation
 ::
 
     pip install py3traits
-
-Documentation
-=============
-
-https://py3traits.readthedocs.org/
 
 Development
 ===========
