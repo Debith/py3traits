@@ -18,6 +18,7 @@
 
 import inspect
 import itertools
+import functools
 
 from pytraits.core.errors import TypeConversionError
 
@@ -81,12 +82,14 @@ class type_safe:
     """
     def __init__(self, function):
         self._function = function
+        self.__signature = inspect.signature(function)
+        self.__doc__ = function.__doc__
         self._specs = inspect.getfullargspec(self._function)
         self._self = None
         self._errors = ErrorMessage(
             'While calling {}:',
             "parameter '{name}' had value '{value}' of type '{typename}'",
-            self.function_signature)
+            self.signature)
 
     def __get__(self, instance, clazz):
         """
@@ -111,21 +114,21 @@ class type_safe:
             # type requirement.
             yield self._function.__annotations__.get(name, None), name, val
 
-    def function_signature(self):
+    def signature(self):
         """
         Returns signature and class of currently invoked function.
 
         >>> @type_converted
         ... def test(value: int, answer: bool): pass
-        >>> test.function_signature()
+        >>> test.signature()
         'test(value:int, answer:bool)'
         """
-        sig = str(inspect.signature(self._function))
+        sig = inspect.signature(self._function)
         name = self._function.__name__
         if self._self:
-            return "%s.%s%s" % (self._self.__class__.__name__, name, sig)
+            return "%s.%s%s" % (self._self.__class__.__name__, name, str(sig))
         else:
-            return "%s%s" % (name, sig)
+            return "%s%s" % (name, str(sig))
 
     def _analyze_args(self, args):
         """
@@ -140,6 +143,8 @@ class type_safe:
         @param args: Arguments given for the function.
         @return same list of arguments given in parameter.
         """
+        # TODO: inspect.Signature does quite lot of similar things. Figure
+        #       out, how to take advantage of that.
         for arg_type, arg_name, arg_value in self.iter_positional_args(args):
             if not arg_type or isinstance(arg_value, arg_type):
                 continue
@@ -229,7 +234,7 @@ class type_converted(type_safe):
             'While calling {}:',
             "got arg '{name}' as '{value}' of type '{typename}' "
             "which cannot be converted to '{expectedtype}'",
-            self.function_signature)
+            self.signature)
 
     def convert(self, arg_type, arg_name, arg_value):
         """

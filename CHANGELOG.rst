@@ -2,6 +2,14 @@
 Changelog
 =========
 
+1.0.1 (2015-06-12)
+------------------
+  - New feature: Added set property convenience function
+  - New example: examples/property_is_created_into_instance.py
+  - Some refactoring for testability
+  - Added new test utility to parametrize tests
+  - Added unit tests
+
 1.0.0 (2015-05-25)
 ------------------
   - First official release
@@ -9,12 +17,17 @@ Changelog
 0.15.0 (2015-05-23)
 -------------------
   - New feature: Alternative syntax added to add_traits function
-  - Added example for alternative syntx
-  - Added example about creating new class from the traits
+  - New example: examples/composition_in_alternative_syntax.py
+  - New example: examples/multiple_traits_composed_into_new_class.py
+  - Addes unit tests
 
 0.14.0 (2015-05-19)
 -------------------
   - New feature: Setter and Deleter for properties are now supported
+  - New example: examples/instance_is_composed_from_cherrypicked_property_in_class.py
+  - New example: examples/instance_is_composed_from_cherrypicked_property_in_instance.py
+  - Updated example: examples/class_is_composed_from_cherrypicked_property_in_class.py
+  - Updated example: examples/class_is_composed_from_cherrypicked_property_in_instance.py
 
 0.13.0 (2015-04-25)
 -------------------
@@ -22,6 +35,7 @@ Changelog
   - New feature: combine_class function takes name for new class as first argument
   - Refactoring magic.py to look less like black magic
   - Improving errors.py exception class creation to accept custom messages
+  - Adding unit tests
 
 0.12.0 (2015-04-22)
 -------------------

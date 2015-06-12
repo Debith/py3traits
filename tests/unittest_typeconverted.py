@@ -1,3 +1,5 @@
+#!/usr/bin/python -tt
+# -*- coding: utf-8 -*-
 import unittest
 
 from pytraits import type_converted

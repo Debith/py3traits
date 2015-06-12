@@ -1,3 +1,5 @@
+#!/usr/bin/python -tt
+# -*- coding: utf-8 -*-
 import unittest
 
 from pytraits.core.errors import FirstTraitArgumentError, TraitArgumentTypeError

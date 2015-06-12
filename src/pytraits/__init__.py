@@ -19,8 +19,9 @@
 from pytraits.core import Singleton, type_safe, type_converted
 from pytraits.combiner import combine_class
 from pytraits.extendable import extendable
+from pytraits.setproperty import setproperty
 from pytraits.trait_composer import add_traits
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __all__ = ["Singleton", "combine_class", "extendable", "add_traits",
            "type_safe", "type_converted"]
