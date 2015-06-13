@@ -6,6 +6,7 @@ Changelog
 ------------------
   - New feature: Added set property convenience function
   - New example: examples/property_is_created_into_instance.py
+  - Added documentation
   - Some refactoring for testability
   - Added new test utility to parametrize tests
   - Added unit tests

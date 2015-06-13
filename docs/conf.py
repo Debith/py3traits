@@ -18,7 +18,7 @@ if os.getenv('SPELLCHECK'):
     spelling_show_suggestions = True
     spelling_lang = 'en_US'
 
-source_suffix = '.md'
+source_suffix = '.rst'
 source_encoding = 'utf-8'
 master_doc = 'index'
 project = 'py3traits'
