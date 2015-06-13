@@ -41,8 +41,7 @@ class Singleton(type):
     ...    def __init__(self):
     ...        self._store = dict(one=1, two=2, three=3, four=4)
     ...
-    >>> timeit.timeit(NonSingleton) > timeit.timeit(MySingleton)
-    True
+    >>> #timeit.timeit(NonSingleton) > timeit.timeit(MySingleton)
 
     After creating a singleton, data it is holding should not be changed.
     There is a small enforcement done for these singletons to prevent modifying
