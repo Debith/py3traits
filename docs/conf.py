@@ -25,7 +25,7 @@ project = 'py3traits'
 year = '2015'
 author = 'Teppo Perä'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '1.0.1'
+version = release = '1.1.0'
 
 import sphinx_rtd_theme
 html_theme = "sphinx_rtd_theme"

@@ -2,9 +2,16 @@
 Changelog
 =========
 
+1.1.0 (2015-06-13)
+------------------
+  - Improving feature: setproperty does not require all property functions
+  - Improving feature: added name as more convenient way to name the property
+  - Improving example: examples/property_is_created_into_instance.py
+  - Changing version numbering.
+
 1.0.1 (2015-06-12)
 ------------------
-  - New feature: Added set property convenience function
+  - New feature: Added setproperty convenience function
   - New example: examples/property_is_created_into_instance.py
   - Added documentation
   - Some refactoring for testability

@@ -30,18 +30,18 @@ example4 = ExampleClass()
 # Use functions from class
 setproperty(example1, ExampleClass.get_all,
                       ExampleClass.set_all,
-                      ExampleClass.del_all, get_all="all")
+                      ExampleClass.del_all, name="all")
 
 # Create property using functions from other instance
 setproperty(example1, example1.get_all,
                       example1.set_all,
-                      example1.del_all, get_all="all")
+                      example1.del_all, name="all")
 
 # Create property for current instance
-setproperty(example2, "get_all", "set_all", "del_all", get_all="all")
+setproperty(example2, "get_all", "set_all", name="all")
 
 # Create property referring functions in other instance
-setproperty(example3, "get_all", "set_all", "del_all", example1, get_all="all")
+setproperty(example3, "get_all", "set_all", "del_all", example1, name="all")
 
 # All instances have their own independent properties
 example1.all = 1, 2, 3
