@@ -18,7 +18,6 @@
 
 import inspect
 import itertools
-import functools
 
 from pytraits.core.errors import TypeConversionError
 

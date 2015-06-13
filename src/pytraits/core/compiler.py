@@ -17,7 +17,6 @@
 '''
 
 import types
-import inspect
 import collections
 
 __all__ = ['Compiler']

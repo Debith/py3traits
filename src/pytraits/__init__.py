@@ -24,4 +24,4 @@ from pytraits.trait_composer import add_traits
 
 __version__ = "1.0.1"
 __all__ = ["Singleton", "combine_class", "extendable", "add_traits",
-           "type_safe", "type_converted"]
+           "type_safe", "type_converted", "setproperty"]

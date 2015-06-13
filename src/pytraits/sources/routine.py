@@ -16,9 +16,7 @@
    limitations under the License.
 '''
 
-import types
 import inspect
-import collections
 
 from pytraits.core.compiler import Compiler
 
