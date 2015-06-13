@@ -31,7 +31,7 @@ class TestCompiler(unittest.TestCase):
         (lambda self: self.public(),        ('public', )),
         (lambda self: (self.a, self._b, self._c, self.__d, self.__e),
                       ('a', '_b', '_c', '_TestClass__d', '_TestClass__e')),
-        (lambda self: None,                 ()))
+        (empty_func,                        ()))
     def test_supports_converting_attribute_names(self, func, attributes):
         compiled = self.recompile(func, self.test_class, "test")
         self.assertEqual(compiled.__code__.co_names, attributes)
