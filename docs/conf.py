@@ -18,13 +18,14 @@ if os.getenv('SPELLCHECK'):
     spelling_show_suggestions = True
     spelling_lang = 'en_US'
 
-source_suffix = '.rst'
+source_suffix = '.md'
+source_encoding = 'utf-8'
 master_doc = 'index'
 project = 'py3traits'
 year = '2015'
 author = 'Teppo Perä'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '0.10.0'
+version = release = '1.0.1'
 
 import sphinx_py3doc_enhanced_theme
 html_theme = "sphinx_py3doc_enhanced_theme"
