@@ -20,8 +20,7 @@ from pytraits.core.errors import SingletonError
 
 
 class Singleton(type):
-    """
-    Turn the class to immutable singleton.
+    """ Turn the class to immutable singleton.
 
     >>> class Example(object, metaclass=Singleton):
     ...    pass
@@ -32,6 +31,7 @@ class Singleton(type):
     True
 
     Having your instance as a singleton is faster than creating from scratch
+
     >>> import timeit
     >>> class MySingleton(object, metaclass=Singleton):
     ...    def __init__(self):
@@ -41,8 +41,12 @@ class Singleton(type):
     ...    def __init__(self):
     ...        self._store = dict(one=1, two=2, three=3, four=4)
     ...
-    >>> #timeit.timeit(NonSingleton) > timeit.timeit(MySingleton)
+    >>> timeit.timeit(NonSingleton) > timeit.timeit(MySingleton)
     True
+
+    After creating a singleton, data it is holding should not be changed.
+    There is a small enforcement done for these singletons to prevent modifying
+    the contents. With little effort it is doable, but don't do it. :)
 
     >>> MySingleton().new_item = False
     Traceback (most recent call last):

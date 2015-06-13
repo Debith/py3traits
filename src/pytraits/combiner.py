@@ -19,9 +19,17 @@
 from pytraits.trait_composer import add_traits
 
 
-def combine_class(class_name, *traits, **resolved_conflicts):
-    """
-    This function composes new class out of any number of traits.
+def combine_class(class_name: str, *traits, **resolved_conflicts):
+    """ This function composes new class out of any number of traits.
+
+    Args:
+        class_name: Name of the new class.
+        traits: Collection of traits, such as functions, classes or instances.
+
+    Keyword Args:
+        name of trait (str): new name
+
+    Example of combining multiple classes to one:
 
     >>> class One:
     ...     def first(self): return 1
@@ -36,7 +44,6 @@ def combine_class(class_name, *traits, **resolved_conflicts):
     >>> instance = Combination()
     >>> instance.first(), instance.second(), instance.third()
     (1, 2, 3)
-
     >>> instance.__class__.__name__
     'Combination'
     """

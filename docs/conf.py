@@ -27,9 +27,9 @@ author = 'Teppo Perä'
 copyright = '{0}, {1}'.format(year, author)
 version = release = '1.0.1'
 
-import sphinx_py3doc_enhanced_theme
-html_theme = "sphinx_py3doc_enhanced_theme"
-html_theme_path = [sphinx_py3doc_enhanced_theme.get_html_theme_path()]
+import sphinx_rtd_theme
+html_theme = "sphinx_rtd_theme"
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 pygments_style = 'trac'
 templates_path = ['.']
@@ -41,5 +41,5 @@ html_sidebars = {
 }
 html_short_title = '%s-%s' % (project, version)
 html_theme_options = {
-    'githuburl': 'https://github.com/Debith/py3traits/'
+#    'githuburl': 'https://github.com/Debith/py3traits/'
 }
