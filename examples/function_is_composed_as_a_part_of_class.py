@@ -7,7 +7,7 @@ from pytraits import extendable
 # class variables and instance variables. Composed functions will have
 # access to all these variables.
 @extendable
-class ExampleClass(object):
+class ExampleClass:
     PUBLIC = 24
     _HIDDEN = 25
     __PRIVATE = 26

@@ -16,12 +16,16 @@
    limitations under the License.
 '''
 
-from pytraits.support import Singleton, Factory, type_safe, type_converted
-from pytraits.combiner import combine_class
-from pytraits.extendable import extendable
-from pytraits.setproperty import setproperty
-from pytraits.trait_composer import add_traits
+from .trait_object import TraitObject
 
-__version__ = "1.2.0"
-__all__ = ["Singleton", "Factory", "combine_class", "extendable", "add_traits",
-           "type_safe", "type_converted", "setproperty"]
+
+class UnidentifiedObject(TraitObject):
+    @classmethod
+    def hook_into(cls, inspector):
+        inspector.set_default_hook(cls)
+
+    def __str__(self):
+        return "Unidentified object"
+
+    def __bool__(self):
+        return False

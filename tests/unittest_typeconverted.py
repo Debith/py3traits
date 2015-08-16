@@ -3,7 +3,7 @@
 import unittest
 
 from pytraits import type_converted
-from pytraits.core.magic import TypeConversionError
+from pytraits.support.errors import TypeConversionError
 
 
 class TestTypeConverted(unittest.TestCase):

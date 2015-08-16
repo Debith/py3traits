@@ -23,13 +23,13 @@ def read(*names, **kwargs):
 
 setup(
     name='py3traits',
-    version='1.1.0',
+    version='1.2.0',
     license='Apache License 2',
     description='Trait support for Python 3',
     long_description='%s\n%s' % (read('README.rst'), re.sub(':obj:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
     author='Teppo Per\xc3\xa4',
     author_email='debith-dev@outlook.com',
-    url='https://github.com/Debith/pytraits',
+    url='https://github.com/Debith/py3traits',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],

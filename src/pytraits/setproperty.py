@@ -74,7 +74,7 @@ def setproperty(target, fget=None, fset=None, fdel=None, source=None, name=None)
         raise TypeError("Property needs to have at least one function.")
 
     # Handle case, when all provided arguments are strings.
-    elif all((isinstance(arg, str) for arg in args)):
+    elif all(isinstance(arg, str) for arg in args):
         owner = source or target
         resolutions[fget] = name
 
@@ -83,7 +83,7 @@ def setproperty(target, fget=None, fset=None, fdel=None, source=None, name=None)
                                 getattr(owner, fdel or "", None))
 
     # It is also possible to provide functions.
-    elif all((inspect.isroutine(arg) for arg in args)):
+    elif all(inspect.isroutine(arg) for arg in args):
         resolutions[fget.__name__] = name
         new_property = property(fget, fset, fdel)
 

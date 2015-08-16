@@ -17,19 +17,40 @@
 '''
 
 import inspect
-import itertools
 
-from pytraits.core import flatten
-from pytraits.core.errors import FirstTraitArgumentError, TraitArgumentTypeError
-from pytraits.sources.factory import TraitSource
+from pytraits.support import flatten, type_converted
+from pytraits.support.errors import (FirstTraitArgumentError,
+                                     TraitArgumentTypeError)
+from pytraits.core import TraitFactory
+
+TraitSource = TraitFactory["TraitSourceInspector"]
+Resolutions = TraitFactory["Resolutions"]
 
 
-class Traits(object):
-    def __init__(self, traits, resolutions):
+@TraitFactory.register
+class Traits:
+    """ This class encapsulates handling of multiple traits. """
+    def __init__(self, traits):
         self.__traits = traits
-        self.__resolutions = resolutions
+
+    @classmethod
+    def create(cls, traits):
+        instance = cls(traits)
+
+        # In case object and strings are given, we need to do some extra work
+        # to get desired traits out.
+        if instance.needs_preprocessing():
+            instance.preprocess()
+        return instance
 
     def needs_preprocessing(self):
+        """ Identifies need to resolve attributes for string arguments within trait source.
+
+        In order to support following syntax:
+            add_traits(Target, Source, "all", "its", "required", "attributes")
+        we need to turn those strings to objects. This function is to used to
+        identify that need.
+        """
         # Calculate number of string arguments so that we can give bit more
         # detailed error messages in case of some weird combinations are found.
         string_arg_count = 0
@@ -53,18 +74,21 @@ class Traits(object):
 
         return True
 
-    @classmethod
-    def create(cls, traits, resolutions):
-        instance = cls(traits, itertools.repeat(resolutions))
-
-        # In case object and strings are given, we need to do some extra work
-        # to get desired traits out.
-        if instance.needs_preprocessing():
-            obj = instance.__traits[0]
-            names = instance.__traits[1:]
-            instance.__traits = [getattr(obj, name) for name in names]
-        return instance
+    def preprocess(self):
+        obj = self.__traits[0]
+        names = self.__traits[1:]
+        self.__traits = [getattr(obj, name) for name in names]
 
     def __iter__(self):
-        for trait in flatten(map(TraitSource, self.__traits, self.__resolutions)):
+        """ Walk through each given trait.
+
+        Any class source is walked through for its contents.
+        """
+        for trait in flatten(map(TraitSource, self.__traits)):
             yield trait
+
+    @type_converted
+    def compose(self, target, resolutions: Resolutions):
+        """ Compose trait sources to target using composer. """
+        for source in self:
+            TraitFactory["Composer"](target, source).compose(resolutions)

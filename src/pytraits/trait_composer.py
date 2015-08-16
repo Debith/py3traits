@@ -16,17 +16,24 @@
    limitations under the License.
 '''
 
-from pytraits.core import Singleton, type_converted
-from pytraits.targets import TraitTarget
+from pytraits.core import TraitFactory
+from pytraits.support import type_converted
 
 
-class TraitComposer(metaclass=Singleton):
-    """
-    Main class that handles composing traits into target object.
-    This object is singleton as there really can be only one.
+TraitTarget = TraitFactory["TraitTargetInspector"]
+Traits = TraitFactory["Traits"]
 
-    >>> id(TraitComposer()) == id(TraitComposer())
-    True
+
+@type_converted
+def add_traits(target: TraitTarget, *traits, **resolutions):
+    """ Bind new traits to given object.
+
+    Args:
+        target: Object of any type that is going to be extended with traits
+        traits: Tuple of traits as object and strings or callables or functions.
+        resolutions: dictionary of conflict resolutions to solve situations
+                     where multiple methods or properties of same name are
+                     encountered in traits.
 
     >>> class ExampleClass:
     ...    def example_method(self):
@@ -36,31 +43,22 @@ class TraitComposer(metaclass=Singleton):
     ...    def other_method(self):
     ...        return 42
     ...
-    >>> composer = TraitComposer()
-    >>> composer.bind_traits(ExampleClass, ExampleTrait)
+    >>> add_traits(ExampleClass, ExampleTrait)
     >>> ExampleClass().other_method()
     42
     """
-    @type_converted
-    def bind_traits(self, target: TraitTarget, *traits, **resolutions):
-        """
-        Bind new traits to given object.
+    # Return immediately, if no traits provided.
+    if not len(traits):
+        return
 
-        @param obj: Object of any type that is going to be extended with traits
-        @param traits: Tuple of traits as strings or callables or functions.
-        @param resolved_conflicts: dictionary of conflict resolutions to solve
-                                   situations where multiple methods of same
-                                   name are encountered in traits.
-        """
-        # Return immediately, if no traits provided.
-        if not len(traits):
-            return
+    # Just prepare object to start the work and get done with it.
+    traits = Traits(traits)
 
-        # Compose traits into target object
-        target.add_traits(traits, resolutions)
+    # This call puts all gears moving. Each trait in turn is being added
+    # to target object. Resolutions are used to solve any conflicts along
+    # the way.
+    traits.compose(target, resolutions)
 
-
-add_traits = TraitComposer().bind_traits
 
 if __name__ == '__main__':
     import doctest

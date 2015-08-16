@@ -16,7 +16,7 @@
    limitations under the License.
 '''
 
-from pytraits.core.errors import SingletonError
+from pytraits.support.errors import SingletonError
 
 
 class Singleton(type):
@@ -37,7 +37,7 @@ class Singleton(type):
     ...    def __init__(self):
     ...        self._store = dict(one=1, two=2, three=3, four=4)
     ...
-    >>> class NonSingleton(object):
+    >>> class NonSingleton:
     ...    def __init__(self):
     ...        self._store = dict(one=1, two=2, three=3, four=4)
     ...
@@ -50,7 +50,7 @@ class Singleton(type):
     >>> MySingleton().new_item = False
     Traceback (most recent call last):
     ...
-    pytraits.core.errors.SingletonError: Singletons are immutable!
+    pytraits.support.errors.SingletonError: Singletons are immutable!
     """
     def __call__(self, *args, **kwargs):
         try:
@@ -59,7 +59,7 @@ class Singleton(type):
             def immutable_object(*args):
                 raise SingletonError()
 
-            self.__instance = super(Singleton, self).__call__(*args, **kwargs)
+            self.__instance = super().__call__(*args, **kwargs)
             self.__setitem__ = immutable_object
             self.__setattr__ = immutable_object
             return self.__instance

@@ -16,6 +16,15 @@
    limitations under the License.
 '''
 
-from pytraits.targets.targets import TraitTarget
+from pytraits.support import Factory
+from .inspectors import TraitSourceInspector, TraitTargetInspector
 
-__all__ = ["TraitTarget"]
+
+class TraitFactory(Factory):
+    """ Factory for core trait objects. """
+
+# TODO: Don't leave this permanent
+TraitFactory(override_duplicates=True)
+TraitFactory.register(TraitSourceInspector, TraitTargetInspector)
+
+__all__ = ["TraitFactory"]

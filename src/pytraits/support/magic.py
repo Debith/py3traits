@@ -18,8 +18,11 @@
 
 import inspect
 import itertools
+import functools
 
-from pytraits.core.errors import TypeConversionError
+from pytraits.support.errors import TypeConversionError, ArgumentValueError
+from pytraits.support.utils import get_func_name
+from pytraits.support.utils import get_signature
 
 
 __all__ = ["type_safe", "type_converted"]
@@ -39,7 +42,7 @@ class ErrorMessage:
         return bool(self.__errors)
 
     def __str__(self):
-        msg = [self.__main_msg.format(self.__get_func_name())]
+        msg = [self.__main_msg.format(self.__get_func_name)]
         for error in self.__errors:
             msg.append("   - " + self.__repeat_msg.format(**error))
         return "\n".join(msg)
@@ -81,14 +84,14 @@ class type_safe:
     """
     def __init__(self, function):
         self._function = function
+        functools.update_wrapper(self, function)
         self.__signature = inspect.signature(function)
-        self.__doc__ = function.__doc__
         self._specs = inspect.getfullargspec(self._function)
         self._self = None
         self._errors = ErrorMessage(
             'While calling {}:',
             "parameter '{name}' had value '{value}' of type '{typename}'",
-            self.signature)
+            get_signature(function))
 
     def __get__(self, instance, clazz):
         """
@@ -112,22 +115,6 @@ class type_safe:
             # We accept empty annotations, in which case the argument has no
             # type requirement.
             yield self._function.__annotations__.get(name, None), name, val
-
-    def signature(self):
-        """
-        Returns signature and class of currently invoked function.
-
-        >>> @type_converted
-        ... def test(value: int, answer: bool): pass
-        >>> test.signature()
-        'test(value:int, answer:bool)'
-        """
-        sig = inspect.signature(self._function)
-        name = self._function.__name__
-        if self._self:
-            return "%s.%s%s" % (self._self.__class__.__name__, name, str(sig))
-        else:
-            return "%s%s" % (name, str(sig))
 
     def _analyze_args(self, args):
         """
@@ -222,7 +209,7 @@ class type_converted(type_safe):
     >>> Example().convert(None, None, None)
     Traceback (most recent call last):
     ...
-    pytraits.core.errors.TypeConversionError: While calling Example.convert(self, value:int, answer:bool, anything):
+    pytraits.support.errors.TypeConversionError: While calling Example.convert(self, value:int, answer:bool, anything):
        - got arg 'value' as 'None' of type 'NoneType' which cannot be converted to 'int'
        - got arg 'answer' as 'None' of type 'NoneType' which cannot be converted to 'bool'
     """
@@ -233,7 +220,7 @@ class type_converted(type_safe):
             'While calling {}:',
             "got arg '{name}' as '{value}' of type '{typename}' "
             "which cannot be converted to '{expectedtype}'",
-            self.signature)
+            get_signature(function))
 
     def convert(self, arg_type, arg_name, arg_value):
         """
@@ -297,6 +284,57 @@ class type_converted(type_safe):
             raise TypeConversionError(str(self._errors))
 
         return new_args
+
+
+class validation(type_safe):
+    """ Class to validate attributes against given values
+
+    >>> @validation
+    ... def show_number(number: (1, 2, 3, 5)):
+    ...     return number
+    ...
+    >>> show_number(1), show_number(2), show_number(3), show_number(5)
+    (1, 2, 3, 5)
+
+    >>> show_number(4)
+    Traceback (most recent call last):
+    ...
+    pytraits.support.errors.ArgumentValueError: While calling 'show_number':
+       - got arg 'number' as '4' of type 'int' which is not any of these values: (1, 2, 3, 5)
+
+    >>> show_number("5")
+    Traceback (most recent call last):
+    ...
+    pytraits.support.errors.ArgumentValueError: While calling 'show_number':
+       - got arg 'number' as '5' of type 'str' which is not any of these values: (1, 2, 3, 5)
+    """
+    def __init__(self, function):
+        super().__init__(function)
+        self.__function = function
+        self._errors = ErrorMessage(
+            "While calling '{}':",
+            "got arg '{name}' as '{value}' of type '{typename}' "
+            "which is not any of these values: {values}",
+            get_func_name(function))
+
+    def _analyze_args(self, args):
+        self._errors.reset()
+
+        for arg_values, arg_name, arg_value in self.iter_positional_args(args):
+            if not arg_values:
+                continue
+
+            arg_values = tuple([arg_values]) if not isinstance(arg_values, tuple) else arg_values
+            if arg_value not in arg_values:
+                self._errors.add(name=arg_name,
+                                 value=arg_value,
+                                 typename=type(arg_value).__name__,
+                                 values=arg_values)
+
+        if self._errors:
+            raise ArgumentValueError(str(self._errors))
+
+        return args
 
 
 if __name__ == "__main__":

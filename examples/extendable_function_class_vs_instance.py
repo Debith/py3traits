@@ -6,7 +6,7 @@ from pytraits import extendable
 # Using decorator to add trait support for objects is the recommended way
 # to do. Here we add add_traits function to our example object.
 @extendable
-class MyExample(object):
+class MyExample:
     pass
 
 assert hasattr(MyExample, 'add_traits'), "Failed to add 'add_traits' function to MyExample"

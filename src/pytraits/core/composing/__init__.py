@@ -16,12 +16,7 @@
    limitations under the License.
 '''
 
-from pytraits.support import Singleton, Factory, type_safe, type_converted
-from pytraits.combiner import combine_class
-from pytraits.extendable import extendable
-from pytraits.setproperty import setproperty
-from pytraits.trait_composer import add_traits
-
-__version__ = "1.2.0"
-__all__ = ["Singleton", "Factory", "combine_class", "extendable", "add_traits",
-           "type_safe", "type_converted", "setproperty"]
+import pytraits.core.composing.compiler  # NOQA
+import pytraits.core.composing.resolutions  # NOQA
+import pytraits.core.composing.traits  # NOQA
+import pytraits.core.composing.composer  # NOQA

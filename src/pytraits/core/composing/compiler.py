@@ -19,9 +19,11 @@
 import types
 import collections
 
-__all__ = ['Compiler']
+from pytraits.support import is_sysname
+from pytraits.core import TraitFactory
 
 
+@TraitFactory.register
 class Compiler:
     """
     Compiler to transfer the function to other class or instance.
@@ -53,11 +55,11 @@ class Compiler:
 
     def _transfer_names(self, trait, clazz):
         items = []
-        for item in trait["co_names"]:
-            if "__" not in item or item.startswith('__') and item.endswith('__'):
-                items.append(item)
+        for name in trait["co_names"]:
+            if "__" not in name or is_sysname(name):
+                items.append(name)
             else:
-                items.append("_%s%s" % (clazz.__name__, item[item.index('__'):]))
+                items.append("_%s%s" % (clazz.__name__, name[name.index('__'):]))
         trait["co_names"] = tuple(items)
 
     def _compile_trait(self, trait, globs):

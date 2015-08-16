@@ -16,7 +16,11 @@
    limitations under the License.
 '''
 
-from pytraits.sources.traits import Traits
-from pytraits.sources.factory import TraitSource
+from .singleton import Singleton
+from .inspector import Inspector
+from .factory import Factory
+from .magic import type_safe, type_converted
+from .utils import flatten, is_sysname, get_func_name
 
-__all__ = ["Traits", "TraitSource"]
+__all__ = ["Singleton", "Inspector", "Factory", "flatten", "type_safe",
+           "type_converted", "is_sysname", "errors", "get_func_name"]

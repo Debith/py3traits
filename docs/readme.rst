@@ -12,12 +12,36 @@ methods, properties and internal state are copied to master object.
 The point is to improve code reusability by dividing code into simple
 building blocks that can be then combined into actual classes.
 
-Read more from wikipedia: http://en.wikipedia.org/wiki/Traits_class
+There is also a wikipedia article about Traits_.
 
-Look for examples from examples folder.
+Basics
+------
 
-Using Traits
-------------
+In the simplest form, traits are very similar to any class, that is inherited
+by some other class. That is a good way to approach traits in general; If you
+can inherit some class, then you can also use it as a trait. Let's look an
+example::
+
+    .. code:: python
+        from pytraits import extendable
+
+        class Parent:
+            def parent_function(self):
+                return "Hello World"
+
+        # Traditional inheritance
+        class TraditionalChild(Parent):
+            pass
+
+        @extendable
+        class ExceptionalChild:
+            pass
+
+        # Composing as trait
+        ExceptionalChild.add_traits(Parent)
+
+Places to use Traits
+--------------------
 
 To be effective with traits, one must have some knowledge about how to
 write code that can be reused effectively through out the system. It also
@@ -96,5 +120,6 @@ Example:
 With this approach, if there becomes a need to support other rendering mechanisms
 then just add new module and write rendering specific code there.
 
+.. _Traits: http://en.wikipedia.org/wiki/Traits_class
 .. _SOLID principles: https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)
 .. _Law of Demeter: https://en.wikipedia.org/wiki/Law_of_Demeter

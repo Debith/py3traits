@@ -2,6 +2,17 @@
 Changelog
 =========
 
+1.2.0 (2015-07-08)
+------------------
+  - New feature: Precompiled functions can be used with properties
+  - New feature: @validation decorator for validating arguments by value
+  - New feature: Factory class for object creation
+  - Improving feature: @type_safe and @type_converted wraps functions properly
+  - Fixed homepage link which was pointing to Python 2 version
+  - Added back the missing github link in documentation
+  - Done a major overhaul for the core to better support adding new features
+  - Many other bigger or smaller improvements
+
 1.1.0 (2015-06-13)
 ------------------
   - Improving feature: setproperty does not require all property functions

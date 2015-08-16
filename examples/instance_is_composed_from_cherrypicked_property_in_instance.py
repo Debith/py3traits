@@ -7,7 +7,7 @@ from pytraits import extendable
 # only instance variables. Composed property will have access to all
 # these variables.
 @extendable
-class ExampleClass(object):
+class ExampleClass:
     def __init__(self):
         self.public = 42
         self._hidden = 43
@@ -17,7 +17,7 @@ class ExampleClass(object):
 # Then we create a class which contains different types of methods that will be
 # transferred as a part of the class above. Note that ExampleTrait requires target
 # object to contain instance variables, thus it won't work as a stand-alone object.
-class ExampleTrait(object):
+class ExampleTrait:
     @property
     def trait_property(self):
         return self.public, self._hidden, self.__private
@@ -55,3 +55,7 @@ assert example_instance.trait_property == (142, 143, 144),\
 del example_instance.trait_property
 assert example_instance.trait_property == (42, 43, 44),\
     "Cherry-picked property's deleter not working in new class!"
+
+# And finally, original class is still unaffected.
+assert not hasattr(ExampleClass, "trait_property"),\
+    "Cherry-picked property has leaked into class!"

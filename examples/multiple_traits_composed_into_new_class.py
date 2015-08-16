@@ -4,13 +4,13 @@ from pytraits import combine_class
 
 
 # In the beginning, we don't have own object even, we just have traits.
-class FirstExampleTrait(object):
+class FirstExampleTrait:
     @staticmethod
     def static_method():
         return 1, 2, 3
 
 
-class SecondExampleTrait(object):
+class SecondExampleTrait:
     @classmethod
     def class_method(cls):
         return cls.PUBLIC, cls._HIDDEN, cls.__PRIVATE
@@ -19,7 +19,7 @@ class SecondExampleTrait(object):
         return self.public, self._hidden, self.__private
 
 
-class ThirdExampleTrait(object):
+class ThirdExampleTrait:
     @property
     def value(self):
         return self.public, self._hidden, self.__private

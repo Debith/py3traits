@@ -2,7 +2,7 @@
 py3traits
 ===============================
 
-| |docs| |travis|
+| |docs| |travis| |downloads| |wheel|
 
 .. |docs| image:: https://readthedocs.org/projects/py3traits/badge/?style=flat
     :target: https://readthedocs.org/projects/py3traits
@@ -11,6 +11,14 @@ py3traits
 .. |travis| image:: http://img.shields.io/travis/Debith/py3traits/master.png?style=flat
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/Debith/py3traits
+
+.. |downloads| image:: http://img.shields.io/pypi/dm/py3traits.png?style=flat
+    :alt: PyPI Package monthly downloads
+    :target: https://pypi.python.org/pypi/py3traits
+
+.. |wheel| image:: https://pypip.in/wheel/py3traits/badge.png?style=flat
+    :alt: PyPI Wheel
+    :target: https://pypi.python.org/pypi/py3traits
 
 Trait support for Python 3
 

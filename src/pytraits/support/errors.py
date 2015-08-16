@@ -16,12 +16,18 @@
    limitations under the License.
 '''
 
+# TODO: This is probably in wrong place
 # Exceptions
 UnextendableObjectError = "Target context can be only class or instance of class"
+FactoryError = "Factory is abstract, inherit your own!"
+FactoryClassMissingError = "Class is missing!"
+FactoryRegisterError = "Already registered!"
 SingletonError = 'Singletons are immutable!'
+SingletonInstanceError = 'Singleton with arguments has already been created!'
 BuiltinSourceError = 'Built-in objects can not used as traits!'
 PropertySourceError = 'Properties can not be extended!'
 TypeConversionError = 'Conversion impossible!'
+ArgumentValueError = 'Unexpected value!'
 FirstTraitArgumentError = 'First argument must not be string!'
 TraitArgumentTypeError = "Expected list of trait names for given source object!"
 

@@ -4,7 +4,8 @@ import unittest
 
 from utils import for_examples
 
-from pytraits.core.compiler import Compiler
+from pytraits.support.utils import get_func_name
+from pytraits.core.composing.compiler import Compiler
 
 
 def empty_func(self):
@@ -50,7 +51,7 @@ class TestCompiler(unittest.TestCase):
         (TestDummy._TestDummy__private_func, "", "__private_func"))
     def test_supports_renaming_trait(self, func, given_name, expected_name):
         compiled = self.recompile(func, self.test_class, given_name)
-        self.assertEqual(compiled.__name__, expected_name)
+        self.assertEqual(get_func_name(compiled), expected_name)
 
 
 if __name__ == '__main__':

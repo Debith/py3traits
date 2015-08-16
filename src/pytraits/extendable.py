@@ -49,7 +49,7 @@ def extendable(target):
     >>> hasattr(instance_example, 'add_traits')
     True
     """
-    class TypeFunction(object):
+    class TypeFunction:
         def __init__(self):
             self._target_object = None
 
