@@ -1,6 +1,8 @@
 Python Traits
 =============
 
+Project can be found from GitHub_.
+
 About Traits
 ------------
 
@@ -157,3 +159,4 @@ then just add new module and write rendering specific code there.
 .. _Traits: http://en.wikipedia.org/wiki/Traits_class
 .. _SOLID principles: https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)
 .. _Law of Demeter: https://en.wikipedia.org/wiki/Law_of_Demeter
+.. _GitHub: https://github.com/Debith/py3traits
