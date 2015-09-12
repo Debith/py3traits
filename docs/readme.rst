@@ -14,6 +14,36 @@ building blocks that can be then combined into actual classes.
 
 There is also a wikipedia article about Traits_.
 
+Motivation
+----------
+
+Traits are meant to be small pieces of behavior (functions or classes) used to
+extend other objects in a flexible, dynamic manner. Being small and independent
+entities, they are easy to understand, maintain and test. Traits also give an
+alternative approach in Python to handle diamond inheritance cases due to fact
+that no inheritance is happening at all (not saying multiple inheritance is an
+issue in Python).
+
+The dynamic nature of traits enables some interesting use cases that are
+unreachable for conventional inheritance; Any changes made to class or instance
+are applied immediately, and they affect whole application. In practice, this
+means it is possible to add new functionality to any class or instance and it
+can be from your own module, some 3rd party module (e.g Django) or even Python's
+own internal classes (e.g. collections.OrderedDict).
+
+For example, there is feature you would need from framework someone else has
+written. Only thing to do is to write traits for those classes that needs to
+be updated and extend them. After extending the classes, framework will behave
+based on those extended classes. Or if there is need to alter the behavior only
+some specific situation (or you just want to be careful), instances of classes
+can be extended only.
+
+Other example would be a situation, where you discover a bug in 3rd party
+framework. Now you can create own solution safely, while waiting for the official
+patch to appear. Updating the framework code won't override your extensions
+as they are applied dynamically. Your changes are only removed when you don't
+need them anymore.
+
 Basics
 ------
 
@@ -40,8 +70,12 @@ example::
         # Composing as trait
         ExceptionalChild.add_traits(Parent)
 
-Places to use Traits
---------------------
+In above example both TraditionalChild and Exceptional child have parent_function
+method. Only small difference is that ExceptionalChild is inherited from object,
+not Parent.
+
+Effective use
+-------------
 
 To be effective with traits, one must have some knowledge about how to
 write code that can be reused effectively through out the system. It also

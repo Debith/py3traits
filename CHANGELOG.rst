@@ -2,9 +2,14 @@
 Changelog
 =========
 
+1.2.1 (2015-07-08)
+------------------
+  - Added "Motivation" section to documentation to help to discover use cases.
+
 1.2.0 (2015-07-08)
 ------------------
-  - New feature: Precompiled functions can be used with properties
+  - New feature: Precompiled (builtin) functions can be used with properties
+  - New feature: Precompiled (builtin) functions can be used as traits
   - New feature: @validation decorator for validating arguments by value
   - New feature: Factory class for object creation
   - Improving feature: @type_safe and @type_converted wraps functions properly
