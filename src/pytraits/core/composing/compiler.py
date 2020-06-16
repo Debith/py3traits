@@ -39,6 +39,7 @@ class Compiler:
 
         trait["co_argcount"] = function.__code__.co_argcount
         trait["co_kwonlyargcount"] = function.__code__.co_kwonlyargcount
+        trait["co_posonlyargcount"] = function.__code__.co_posonlyargcount
         trait["co_nlocals"] = function.__code__.co_nlocals
         trait["co_stacksize"] = function.__code__.co_stacksize
         trait["co_flags"] = function.__code__.co_flags
