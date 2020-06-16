@@ -18,6 +18,7 @@
 
 import types
 import collections
+import sys
 
 from pytraits.support import is_sysname
 from pytraits.core import TraitFactory
@@ -39,7 +40,8 @@ class Compiler:
 
         trait["co_argcount"] = function.__code__.co_argcount
         trait["co_kwonlyargcount"] = function.__code__.co_kwonlyargcount
-        trait["co_posonlyargcount"] = function.__code__.co_posonlyargcount
+        if sys.version_info[0] == 3 and sys.version_info[1] >= 8:
+          trait["co_posonlyargcount"] = function.__code__.co_posonlyargcount
         trait["co_nlocals"] = function.__code__.co_nlocals
         trait["co_stacksize"] = function.__code__.co_stacksize
         trait["co_flags"] = function.__code__.co_flags
