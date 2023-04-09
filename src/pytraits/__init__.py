@@ -22,6 +22,6 @@ from pytraits.extendable import extendable
 from pytraits.setproperty import setproperty
 from pytraits.trait_composer import add_traits
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 __all__ = ["Singleton", "Factory", "combine_class", "extendable", "add_traits",
            "type_safe", "type_converted", "setproperty"]
